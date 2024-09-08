@@ -34,7 +34,7 @@ class NoteDaoTest {
         hiltRule.inject()
         noteDao = noteDb.noteDao
     }
-    
+
     @After
     fun tearDown() {
         noteDb.close()
