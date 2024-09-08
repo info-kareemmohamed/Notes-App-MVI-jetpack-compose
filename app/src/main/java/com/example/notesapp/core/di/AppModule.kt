@@ -2,7 +2,10 @@ package com.example.notesapp.core.di
 
 import android.app.Application
 import androidx.room.Room
+import com.example.notesapp.core.data.local.NoteDao
 import com.example.notesapp.core.data.local.NoteDb
+import com.example.notesapp.core.data.repository.NoteRepositoryImpl
+import com.example.notesapp.core.domain.repository.NoteRepository
 import com.example.notesapp.core.util.Constant.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -29,5 +32,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNoteDao(noteDb: NoteDb) = noteDb.noteDao
+
+    @Provides
+    @Singleton
+    fun provideNoteRepository(noteDao: NoteDao): NoteRepository = NoteRepositoryImpl(noteDao)
+
 
 }
