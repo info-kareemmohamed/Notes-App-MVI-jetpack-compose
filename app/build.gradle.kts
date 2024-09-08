@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
+    alias(libs.plugins.daggerHiltAndroid)
+
+
 }
 
 android {
@@ -14,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.notesapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -47,6 +51,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
 }
 
 dependencies {
@@ -66,4 +72,24 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+     //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    //Testing
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+
+
+
+    // Hilt Testing
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.51.1")
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:2.51.1")
+
 }
