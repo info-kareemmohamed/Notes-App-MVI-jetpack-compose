@@ -95,6 +95,45 @@ class NoteDaoTest {
         assert(notes.contains(updatedNote))
     }
 
+    @Test
+    fun getNotesSortedByDateAdded() = runTest {
+        //Given
+        val note1 = NoteEntity("title1", "description1", "imageUrl1", 3, 1)
+        val note2 = NoteEntity("title2", "description2", "imageUrl2", 2, 2)
+
+        //When
+        noteDao.upsertNoteEntity(note1)
+        noteDao.upsertNoteEntity(note2)
+        val notes = noteDao.getNotesOrderedByDateAdded()
+
+        //Then
+        assert(notes[0] == note2)
+        assert(notes[1] == note1)
+
+    }
+
+
+
+    @Test
+    fun getNotesSortedByTitle() = runTest {
+        //Given
+        val note1 = NoteEntity("B", "description1", "imageUrl1", 3, 1)
+        val note2 = NoteEntity("A", "description2", "imageUrl2", 2, 2)
+        val note3 = NoteEntity("C", "description2", "imageUrl2", 5, 3)
+
+        //When
+        noteDao.upsertNoteEntity(note1)
+        noteDao.upsertNoteEntity(note2)
+        noteDao.upsertNoteEntity(note3)
+        val notes = noteDao.getNotesOrderedByTitle()
+
+        //Then
+        assert(notes[0] == note2)
+        assert(notes[1] == note1)
+        assert(notes[2] == note3)
+
+    }
+
 
 
 }
