@@ -17,4 +17,9 @@ interface NoteDao {
     @Delete
     suspend fun deleteNoteEntity(note: NoteEntity)
 
+    @Query("SELECT * FROM note_entity ORDER BY title ASC")
+    suspend fun getNotesOrderedByTitle(): List<NoteEntity>
+
+    @Query("SELECT * FROM note_entity ORDER BY dateAdded ASC")
+    suspend fun getNotesOrderedByDateAdded(): List<NoteEntity>
 }
