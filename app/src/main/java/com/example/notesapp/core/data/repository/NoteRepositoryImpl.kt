@@ -21,5 +21,10 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun getAllNotes(): List<Note> =
         noteDao.getAllNoteEntities().map { it.toNoteItem() }
 
+    override suspend fun getNotesSortedByTitle(): List<Note> =
+        noteDao.getNotesOrderedByTitle().map { it.toNoteItem() }
+
+    override suspend fun getNotesSortedByDateAdded(): List<Note> =
+        noteDao.getNotesOrderedByDateAdded().map { it.toNoteItem() }
 
 }

@@ -85,6 +85,10 @@ dependencies {
 
     //Testing
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    testImplementation ("com.google.truth:truth:1.1.5")
+
 
 
 

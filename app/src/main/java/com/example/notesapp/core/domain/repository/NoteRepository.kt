@@ -9,4 +9,8 @@ interface NoteRepository {
     suspend fun deleteNote(note: Note)
 
     suspend fun getAllNotes(): List<Note>
+
+    suspend fun getNotesSortedByTitle(): List<Note>
+
+    suspend fun getNotesSortedByDateAdded(): List<Note>
 }
