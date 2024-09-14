@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrainsKotlinSerialization)
     kotlin("kapt")
     alias(libs.plugins.daggerHiltAndroid)
 
@@ -73,6 +74,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+
+    ///serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    ///navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
+
+    //Icons
+    implementation ("androidx.compose.material:material-icons-extended:1.7.0")
+
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
@@ -82,10 +94,13 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
 
+    ////coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //Testing
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
