@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ImagesApi {
 
     @GET("/api/")
-    suspend fun getImages(
+    suspend fun searchImages(
         @Query("q") query: String,
         @Query("key") apiKey: String = API_KEY,
     ): ImageListDto?
