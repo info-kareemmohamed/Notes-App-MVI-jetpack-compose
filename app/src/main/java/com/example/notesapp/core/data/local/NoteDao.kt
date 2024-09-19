@@ -14,6 +14,9 @@ interface NoteDao {
     @Query("SELECT * FROM note_entity")
     suspend fun getAllNoteEntities(): List<NoteEntity>
 
+   @Query("SELECT * FROM note_entity WHERE id = :id")
+    suspend fun getNoteById(id: Int): NoteEntity?
+
     @Delete
     suspend fun deleteNoteEntity(note: NoteEntity)
 
