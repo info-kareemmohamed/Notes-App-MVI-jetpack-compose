@@ -2,7 +2,6 @@ package com.example.notesapp.note_list.presentation.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +24,14 @@ fun TopBar(
     modifier: Modifier = Modifier,
     notesCount: Int,
     onSortClick: () -> Unit,
-    sort: String
+    sort: Boolean
 
 ) {
 
+
+
     Row(
-        modifier = modifier.fillMaxWidth().padding(10.dp),
+        modifier = modifier.fillMaxWidth().padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
 
@@ -43,7 +44,7 @@ fun TopBar(
             verticalAlignment = Alignment.CenterVertically
         ){
 
-            Text(text = sort, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Text(text = if(sort) "T" else "D", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
             Spacer(modifier = Modifier.width(5.dp))
             Icon(imageVector = Icons.AutoMirrored.Filled.Sort, contentDescription = null)
 
@@ -59,5 +60,5 @@ fun TopBar(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TopBarPreview() {
-    TopBar(notesCount = 10, onSortClick = {}, sort = "D")
+    TopBar(notesCount = 10, onSortClick = {}, sort = false)
 }

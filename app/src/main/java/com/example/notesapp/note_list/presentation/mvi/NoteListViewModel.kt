@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,16 +24,25 @@ class NoteListViewModel @Inject constructor(
     private val _state = MutableStateFlow(NoteListState())
     val state = _state.asStateFlow()
 
-    init {
-        processIntent(NoteListIntent.LoadNotes)
-    }
+
 
     fun processIntent(intent: NoteListIntent) {
         when (intent) {
-            is NoteListIntent.LoadNotes -> loadNotes { getNotesSortedByDate() }
-            is NoteListIntent.SortNotesByTitle -> loadNotes { getNotesSortedByTitle() }
-            is NoteListIntent.SortNotesByDateAdded -> loadNotes { getNotesSortedByDate() }
+            is NoteListIntent.SortNotesByTitle -> {
+                if (intent.sort)
+                    loadNotes { getNotesSortedByTitle() }
+                else
+                    loadNotes { getNotesSortedByDate() }
+
+                _state.update {
+                    it.copy(
+                        sortOrderByTitle = intent.sort
+                    )
+                }
+            }
+
             is NoteListIntent.DeleteNote -> deleteNote(intent.note)
+
         }
     }
 
@@ -40,6 +50,7 @@ class NoteListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 deleteNoteUseCase(note)
+                 processIntent(NoteListIntent.SortNotesByTitle(state.value.sortOrderByTitle))
             } catch (e: Exception) {
                 updateStateWithError(e)
             }
