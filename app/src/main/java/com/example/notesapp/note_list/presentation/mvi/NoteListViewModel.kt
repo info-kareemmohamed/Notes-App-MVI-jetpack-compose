@@ -25,19 +25,11 @@ class NoteListViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
 
-
     fun processIntent(intent: NoteListIntent) {
         when (intent) {
             is NoteListIntent.SortNotesByTitle -> {
-                if (intent.sort)
-                    loadNotes { getNotesSortedByTitle() }
-                else
-                    loadNotes { getNotesSortedByDate() }
-
-                _state.update {
-                    it.copy(
-                        sortOrderByTitle = intent.sort
-                    )
+                loadNotes(intent.sort) {
+                    if (intent.sort) getNotesSortedByTitle() else getNotesSortedByDate()
                 }
             }
 
@@ -47,23 +39,25 @@ class NoteListViewModel @Inject constructor(
     }
 
     private fun deleteNote(note: Note) {
+        _state.update { it.copy(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 deleteNoteUseCase(note)
-                 processIntent(NoteListIntent.SortNotesByTitle(state.value.sortOrderByTitle))
+                processIntent(NoteListIntent.SortNotesByTitle(state.value.sortOrderByTitle))
             } catch (e: Exception) {
                 updateStateWithError(e)
             }
         }
     }
 
-    private fun loadNotes(getNotes: suspend () -> List<Note>) {
+    private fun loadNotes(sortOrderByTitle: Boolean, getNotes: suspend () -> List<Note>) {
         _state.value = _state.value.copy(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val notes = getNotes()
                 _state.value = _state.value.copy(
                     notes = notes,
+                    sortOrderByTitle = sortOrderByTitle,
                     isLoading = false
                 )
             } catch (e: Exception) {
