@@ -12,9 +12,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltAndroidTest
-@UninstallModules(AppModule::class)
 class NoteDaoTest {
 
     @get:Rule
@@ -24,6 +24,7 @@ class NoteDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Inject
+    @Named("test_db")
     lateinit var noteDb: NoteDb
 
     private lateinit var noteDao: NoteDao
@@ -133,6 +134,27 @@ class NoteDaoTest {
         assert(notes[2] == note3)
 
     }
+
+
+    @Test
+    fun getNoteById() = runTest {
+        //Given
+        val note1 = NoteEntity("B", "description1", "imageUrl1", 3, 1)
+        val note2 = NoteEntity("A", "description2", "imageUrl2", 2, 2)
+        val note3 = NoteEntity("C", "description2", "imageUrl2", 5, 3)
+
+        //When
+        noteDao.upsertNoteEntity(note1)
+        noteDao.upsertNoteEntity(note2)
+        noteDao.upsertNoteEntity(note3)
+        val note = noteDao.getNoteById(2)
+
+        //Then
+        assert(note == note2)
+
+
+    }
+
 
 
 
