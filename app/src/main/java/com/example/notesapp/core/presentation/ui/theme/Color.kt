@@ -2,10 +2,14 @@ package com.example.notesapp.core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Primary Color
+val PrimaryBlue = Color(0xFF1E88E5)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Secondary Colors
+val SecondaryPurpleGreyDark = Color(0xFFCCC2DC)
+val SecondaryPurpleGreyLight = Color(0xFF625B71)
+val SecondaryBlueGreyLight = Color(0xFF80B6D1)
+
+// Tertiary Color
+val TertiaryPink = Color(0xFF7D5260)
+
