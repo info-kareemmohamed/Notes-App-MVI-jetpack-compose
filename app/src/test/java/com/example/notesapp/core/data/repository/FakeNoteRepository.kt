@@ -11,10 +11,10 @@ class FakeNoteRepository : NoteRepository {
         notes =
             if (shouldHaveFilledList) {
                 mutableListOf(
-                    Note("a title 1", "desc 1", "url1", 1),
-                    Note("b title 2", "desc 2", "url2", 2),
-                    Note("c title 3", "desc 3", "url3", 3),
-                    Note("d title 4", "desc 4", "url4", 4)
+                    Note("a title 1", "desc 1", "url1", 4,1),
+                    Note("b title 2", "desc 2", "url2", 3,2),
+                    Note("c title 3", "desc 3", "url3", 2,3),
+                    Note("d title 4", "desc 4", "url4", 1,4)
                 )
             } else {
                 mutableListOf()
@@ -31,9 +31,11 @@ class FakeNoteRepository : NoteRepository {
         notes.remove(note)
     }
 
+    override suspend fun getNoteById(id: Int): Note? = notes.find { it.id == id }
+
     override suspend fun getAllNotes(): List<Note> =notes
 
-    override suspend fun getNotesSortedByTitle(): List<Note> = notes
+    override suspend fun getNotesSortedByTitle(): List<Note> = notes.sortedBy { it.title }
 
-    override suspend fun getNotesSortedByDateAdded(): List<Note> = notes
+    override suspend fun getNotesSortedByDateAdded(): List<Note> = notes.sortedBy { it.dateAdded }
 }
