@@ -15,7 +15,7 @@ class FakeImagesRepository : ImagesRepository {
         query: String
     ): Images? {
         return if (shouldReturnError) {
-            null
+            throw Exception("Network error")
         } else {
             Images(
                 listOf("image1", "image2", "image3", "image4")
