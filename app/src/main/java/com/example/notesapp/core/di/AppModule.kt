@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.example.notesapp.core.data.local.NoteDao
 import com.example.notesapp.core.data.local.NoteDb
 import com.example.notesapp.core.data.remote.api.ImagesApi
+import com.example.notesapp.core.data.repository.ImagesRepositoryImpl
 import com.example.notesapp.core.data.repository.NoteRepositoryImpl
+import com.example.notesapp.core.domain.repository.ImagesRepository
 import com.example.notesapp.core.domain.repository.NoteRepository
 import com.example.notesapp.core.util.Constant.BASE_URL
 import com.example.notesapp.core.util.Constant.DATABASE_NAME
@@ -51,6 +53,10 @@ object AppModule {
             .build()
             .create(ImagesApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideImagesRepository(imagesApi: ImagesApi): ImagesRepository = ImagesRepositoryImpl(imagesApi)
 
 
 }
