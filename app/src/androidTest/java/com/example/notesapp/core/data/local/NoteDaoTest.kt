@@ -15,6 +15,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @HiltAndroidTest
+@UninstallModules(AppModule::class)
 class NoteDaoTest {
 
     @get:Rule
@@ -24,7 +25,6 @@ class NoteDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Inject
-    @Named("test_db")
     lateinit var noteDb: NoteDb
 
     private lateinit var noteDao: NoteDao
