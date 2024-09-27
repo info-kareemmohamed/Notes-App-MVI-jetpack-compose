@@ -18,10 +18,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.notesapp.core.presentation.component.ErrorScreen
 import com.example.notesapp.core.presentation.component.LoadingScreen
+import com.example.notesapp.core.util.TestTags
+import com.example.notesapp.core.util.TestTags.ADD_NOTE_FAB
 import com.example.notesapp.note_list.presentation.component.ListNoteItem
 import com.example.notesapp.note_list.presentation.component.TopBar
 import com.example.notesapp.note_list.presentation.mvi.NoteListIntent
@@ -52,7 +55,8 @@ fun NoteListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 10.dp),
+                modifier = Modifier.padding(bottom = 10.dp)
+                    .testTag(ADD_NOTE_FAB),
                 onClick = { onNavigateToAddNote(-1) }
             ) {
                 Icon(

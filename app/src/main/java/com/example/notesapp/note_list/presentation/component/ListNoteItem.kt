@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,6 +35,7 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.example.notesapp.core.domain.model.Note
 import com.example.notesapp.core.presentation.ui.theme.NotesAppTheme
+import com.example.notesapp.core.util.TestTags.DELETE_NOTE
 
 @Composable
 fun ListNoteItem(
@@ -70,7 +72,7 @@ fun ListNoteItem(
                     .data(noteItem.imageUrl)
                     .size(Size.ORIGINAL)
                     .build(),
-                contentDescription = noteItem.title,
+                contentDescription = noteItem.imageUrl,
                 contentScale = ContentScale.Crop
             )
 
@@ -84,6 +86,7 @@ fun ListNoteItem(
             ) {
 
                 Text(
+
                     text = noteItem.title,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 19.sp,
@@ -106,7 +109,7 @@ fun ListNoteItem(
                 modifier = Modifier
                     .clickable { onDelete() },
                 imageVector = Icons.Default.Clear,
-                contentDescription = null,
+                contentDescription = DELETE_NOTE+noteItem.title,
                 tint = Color.Black,
             )
 
