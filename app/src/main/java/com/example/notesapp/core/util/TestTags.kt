@@ -9,6 +9,7 @@ object TestTags {
     const val NOTE_IMAGE = "NOTE_IMAGE"
     const val TITLE_TEXT_FIELD = "TITLE_TEXT_FIELD"
     const val DESCRIPTION_TEXT_FIELD = "DESCRIPTION_TEXT_FIELD"
+    const val NOTES_COUNT_TEXT = "NOTES_COUNT_TEXT"
     const val SAVE_BUTTON = "SAVE_BUTTON"
 
     // ImagesDialog
