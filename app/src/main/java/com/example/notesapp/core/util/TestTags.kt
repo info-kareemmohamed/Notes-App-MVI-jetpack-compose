@@ -4,6 +4,7 @@ object TestTags {
     // NoteListScreen
     const val ADD_NOTE_FAB = "ADD_NOTE_FAB"
     const val DELETE_NOTE = "DELETE_NOTE"
+    const val NOTE_IMAGE_CARD = "NOTE_IMAGE_CARD"
 
     // AddNoteScreen
     const val NOTE_IMAGE = "NOTE_IMAGE"
