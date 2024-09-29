@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +44,15 @@ import coil.size.Size
 import com.example.notesapp.add_note.presentation.mvi.AddNoteIntent
 import com.example.notesapp.add_note.presentation.mvi.AddNoteState
 import com.example.notesapp.add_note.presentation.mvi.AddNoteViewModel
+import com.example.notesapp.core.util.TestTags.DESCRIPTION_TEXT_FIELD
+import com.example.notesapp.core.util.TestTags.NOTE_IMAGE
+import com.example.notesapp.core.util.TestTags.PICKED_IMAGE
+import com.example.notesapp.core.util.TestTags.SAVE_BUTTON
+import com.example.notesapp.core.util.TestTags.SEARCH_IMAGE_DIALOG
+import com.example.notesapp.core.util.TestTags.SEARCH_IMAGE_TEXT_FIELD
+import com.example.notesapp.core.util.TestTags.TITLE_TEXT_FIELD
 import kotlinx.coroutines.flow.collectLatest
+
 
 @Composable
 fun AddNoteScreen(
@@ -90,20 +99,25 @@ fun AddNoteScreen(
                         .height(200.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .clickable { viewModel.processIntent(AddNoteIntent.UpdateImagesDialogVisibility) }
-                        .background(MaterialTheme.colorScheme.secondary),
+                        .background(MaterialTheme.colorScheme.secondary)
+                        .testTag(
+                            NOTE_IMAGE+state.imageUrl
+                        ),
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(state.imageUrl)
                         .size(Size.ORIGINAL)
                         .build(),
                     contentScale = ContentScale.Crop,
-                    contentDescription = null
+                    contentDescription = NOTE_IMAGE
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(TITLE_TEXT_FIELD),
                 value = state.title,
                 onValueChange = { viewModel.processIntent(AddNoteIntent.ChangeTitle(it)) },
                 label = { Text(text = "Title") }
@@ -115,7 +129,8 @@ fun AddNoteScreen(
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(100.dp),
+                    .heightIn(100.dp)
+                    .testTag(DESCRIPTION_TEXT_FIELD),
                 value = state.description,
                 onValueChange = { viewModel.processIntent(AddNoteIntent.ChangeDescription(it)) },
                 label = { Text(text = "Description") }
@@ -124,7 +139,9 @@ fun AddNoteScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
 
-            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+            Button(modifier = Modifier
+                .fillMaxWidth()
+                .testTag(SAVE_BUTTON), onClick = {
                 viewModel.processIntent(
                     AddNoteIntent.UpsertNote(
                         state.title,
@@ -173,14 +190,16 @@ fun ImageDialog(
             .fillMaxWidth()
             .fillMaxHeight(0.7f)
             .clip(RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
+            .testTag(SEARCH_IMAGE_DIALOG),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .testTag(SEARCH_IMAGE_TEXT_FIELD),
             value = addNoteState.searchImagesQuery,
             onValueChange = { onSearchQueryChange(it) },
             label = { Text(text = "Search") }
@@ -210,7 +229,8 @@ fun ImageDialog(
                             .padding(8.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .background(MaterialTheme.colorScheme.secondary)
-                            .clickable { onImageClick(url) },
+                            .clickable { onImageClick(url) }
+                            .testTag(PICKED_IMAGE + url),
                         model = ImageRequest
                             .Builder(LocalContext.current)
                             .data(url)
