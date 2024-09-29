@@ -1,8 +1,7 @@
 package com.example.notesapp.core.data.repository
 
 import com.example.notesapp.core.data.local.NoteDao
-import com.example.notesapp.core.data.mapper.toNoteEntityForDelete
-import com.example.notesapp.core.data.mapper.toNoteEntityForInsert
+import com.example.notesapp.core.data.mapper.toNoteEntity
 import com.example.notesapp.core.data.mapper.toNoteItem
 import com.example.notesapp.core.domain.model.Note
 import com.example.notesapp.core.domain.repository.NoteRepository
@@ -12,11 +11,11 @@ class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao
 ) : NoteRepository {
     override suspend fun upsertNote(note: Note) =
-        noteDao.upsertNoteEntity(note.toNoteEntityForInsert())
+        noteDao.upsertNoteEntity(note.toNoteEntity())
 
 
     override suspend fun deleteNote(note: Note) =
-        noteDao.deleteNoteEntity(note.toNoteEntityForDelete())
+        noteDao.deleteNoteEntity(note.toNoteEntity())
 
     override suspend fun getNoteById(id: Int): Note? = noteDao.getNoteById(id)?.toNoteItem()
 

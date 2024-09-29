@@ -3,17 +3,7 @@ package com.example.notesapp.core.data.mapper
 import com.example.notesapp.core.data.local.NoteEntity
 import com.example.notesapp.core.domain.model.Note
 
-fun Note.toNoteEntityForInsert(
-): NoteEntity {
-    return NoteEntity(
-        title = title,
-        description = description,
-        imageUrl = imageUrl,
-        dateAdded = dateAdded
-    )
-}
-
-fun Note.toNoteEntityForDelete(
+fun Note.toNoteEntity(
 ): NoteEntity {
     return NoteEntity(
         title = title,
@@ -23,6 +13,7 @@ fun Note.toNoteEntityForDelete(
         id = id
     )
 }
+
 
 fun NoteEntity.toNoteItem(): Note {
     return Note(
