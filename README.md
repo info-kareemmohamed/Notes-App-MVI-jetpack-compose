@@ -1,4 +1,3 @@
-[NotesApp.webm](https://github.com/user-attachments/assets/be03cfed-1764-42bc-a786-7c63a426e3fe)
 <h1 align="center">Notes App</h1>
 
 <p align="center"> 🗒 The primary goal of building this Notes app is to practice dependency injection, fetching data from an API, applying Clean Architecture with feature-based structure, and implementing comprehensive testing (Unit Tests, Integration Tests, UI Tests). </p>
